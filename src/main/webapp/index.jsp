@@ -31,6 +31,12 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff10" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') no-repeat top center;
         }
         
+        .hero img {
+            height: 120px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+        
         .hero-badge {
             display: inline-block;
             background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
@@ -52,6 +58,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.1;
         }
         
         .hero h2 {
@@ -59,6 +66,7 @@
             font-weight: 700;
             color: #4ecdc4;
             margin-bottom: 15px;
+            line-height: 1.2;
         }
         
         .hero p {
@@ -66,6 +74,7 @@
             opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
+            padding: 0 10px;
         }
         
         .container {
@@ -414,6 +423,15 @@
         }
         
         @media (max-width: 768px) {
+            .hero {
+                padding: 40px 15px 30px;
+            }
+            
+            .hero img {
+                height: 100px;
+                margin-bottom: 15px;
+            }
+            
             .hero h1 {
                 font-size: 2em;
             }
@@ -422,19 +440,117 @@
                 font-size: 1.5em;
             }
             
+            .hero p {
+                font-size: 1em;
+            }
+            
+            .categories-title {
+                font-size: 1.4em;
+            }
+            
             .categories-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .folders-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-button {
+                padding: 30px 20px;
+            }
+            
+            .category-icon {
+                font-size: 2.5em;
+            }
+            
+            .category-name {
+                font-size: 1.1em;
+            }
+            
+            .container {
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 30px 10px 20px;
+            }
+            
+            .hero img {
+                height: 80px;
+                margin-bottom: 12px;
+            }
+            
+            .hero h1 {
+                font-size: 1.5em;
+            }
+            
+            .hero h2 {
+                font-size: 1.2em;
+            }
+            
+            .hero p {
+                font-size: 0.9em;
+            }
+            
+            .categories-title {
+                font-size: 1.2em;
+                margin-bottom: 20px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .category-button {
+                padding: 25px 15px;
+                gap: 10px;
+            }
+            
+            .category-icon {
+                font-size: 2em;
+            }
+            
+            .category-name {
+                font-size: 1em;
+            }
+            
+            .folders-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .notes-section h3 {
+                font-size: 1.1em;
+            }
+            
+            .admin-link {
+                padding: 10px 15px;
+                font-size: 0.8em;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .breadcrumb {
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
     <div class="hero">
-        <img src="logo.png" alt="Quick Notes Logo" style="height: 120px; margin-bottom: 20px; border-radius: 20px;">
+        <img src="logo.png" alt="Quick Notes Logo">
         <h1>Quick Notes</h1>
         <h2>Study Smarter, Learn Better</h2>
         <p>Access quality study materials organized by category</p>
