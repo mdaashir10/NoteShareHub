@@ -102,69 +102,81 @@
             opacity: 0.8;
         }
         
+        .categories-section {
+            margin-bottom: 50px;
+        }
+        
+        .categories-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 0%, #4ecdc4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .category-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+        
+        .category-button:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .category-button:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .category-button:nth-child(4) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .category-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .category-icon {
+            font-size: 3.5em;
+        }
+        
+        .category-name {
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+        
+        .category-count {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
         .content-grid {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
             margin-bottom: 40px;
-        }
-        
-        .sidebar {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-        
-        .sidebar h3 {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            color: #4ecdc4;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .sidebar-nav {
-            list-style: none;
-        }
-        
-        .sidebar-nav li {
-            margin-bottom: 8px;
-        }
-        
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-        
-        .sidebar-nav a:hover {
-            background: rgba(78, 205, 196, 0.2);
-            color: #fff;
-        }
-        
-        .sidebar-nav a.active {
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-            color: #fff;
-        }
-        
-        .folder-count {
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8em;
-            margin-left: auto;
         }
         
         .main-content {
@@ -396,13 +408,8 @@
         }
         
         @media (max-width: 900px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                position: relative;
-                top: 0;
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
@@ -413,6 +420,10 @@
             
             .hero h2 {
                 font-size: 1.5em;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
             }
             
             .folders-grid {
@@ -426,18 +437,41 @@
         <span class="hero-badge">Free Study Materials</span>
         <h1>DOWNLOAD NOTES &</h1>
         <h2>QUESTION PAPERS</h2>
-        <p>Access quality study materials organized by semester and subject</p>
+        <p>Access quality study materials organized by category</p>
     </div>
     
     <div class="container">
         <%
-            List<FolderItem> allCategories = (List<FolderItem>) request.getAttribute("allCategories");
             List<FolderItem> folders = (List<FolderItem>) request.getAttribute("folders");
             List<FileItem> files = (List<FileItem>) request.getAttribute("files");
             List<BreadcrumbItem> breadcrumbs = (List<BreadcrumbItem>) request.getAttribute("breadcrumbs");
             String currentPath = (String) request.getAttribute("currentPath");
             if (currentPath == null) currentPath = "";
         %>
+        
+        <% if (currentPath.isEmpty()) { %>
+            <div class="categories-section">
+                <h2 class="categories-title">📚 Study Materials</h2>
+                <div class="categories-grid">
+                    <a href="list?path=Notes" class="category-button">
+                        <span class="category-icon">📝</span>
+                        <span class="category-name">Notes</span>
+                    </a>
+                    <a href="list?path=Question Papers" class="category-button">
+                        <span class="category-icon">❓</span>
+                        <span class="category-name">Question Papers</span>
+                    </a>
+                    <a href="list?path=Text Books" class="category-button">
+                        <span class="category-icon">📖</span>
+                        <span class="category-name">Text Books</span>
+                    </a>
+                    <a href="list?path=Guides" class="category-button">
+                        <span class="category-icon">🎯</span>
+                        <span class="category-name">Guides</span>
+                    </a>
+                </div>
+            </div>
+        <% } %>
         
         <div class="breadcrumb">
             <% if (breadcrumbs != null) {
@@ -454,28 +488,6 @@
         </div>
         
         <div class="content-grid">
-            <aside class="sidebar">
-                <h3>📂 Categories</h3>
-                <ul class="sidebar-nav">
-                    <li>
-                        <a href="list" class="<%= currentPath.isEmpty() ? "active" : "" %>">
-                            🏠 All Notes
-                        </a>
-                    </li>
-                    <% if (allCategories != null) {
-                        for (FolderItem cat : allCategories) { %>
-                            <li>
-                                <a href="list?path=<%= java.net.URLEncoder.encode(cat.getPath(), "UTF-8") %>" 
-                                   class="<%= cat.getPath().equals(currentPath) ? "active" : "" %>">
-                                    📁 <%= cat.getName() %>
-                                    <span class="folder-count"><%= cat.getFileCount() %></span>
-                                </a>
-                            </li>
-                        <% }
-                    } %>
-                </ul>
-            </aside>
-            
             <main class="main-content">
                 <div class="notes-section">
                     <h3>📚 <%= currentPath.isEmpty() ? "All Materials" : currentPath.substring(currentPath.lastIndexOf("/") + 1) %></h3>

@@ -1,12 +1,12 @@
 # Student Notes Sharing Application
 
 ## Overview
-A beginner-friendly Java web application using Servlets and JSP for student notes sharing, styled after backbencher.club. Students can download notes publicly, while only the admin can upload or delete files. Uses Apache Tomcat as the web server with BASIC authentication for admin access.
+A beginner-friendly Java web application using Servlets and JSP for student notes sharing. Students can download notes publicly from 4 predefined categories (Notes, Question Papers, Text Books, Guides), each with nested directory organization. Only the admin can upload or delete files. Uses Apache Tomcat as the web server with BASIC authentication for admin access.
 
 ## Design
 - **Theme:** Dark gradient theme inspired by backbencher.club
 - **Typography:** Poppins font family
-- **Features:** Hero section, folder navigation, sidebar categories, glassmorphism effects
+- **Features:** Hero section, 4 category buttons, nested folder navigation, glassmorphism effects
 - **Colors:** Purple/teal gradient background with colorful accent cards
 
 ## Project Structure
@@ -21,13 +21,17 @@ student-notes/
 │   │   ├── DeleteServlet.java          # Handles file/folder deletion
 │   │   └── CreateFolderServlet.java    # Creates new folders/categories
 │   └── webapp/
-│       ├── index.jsp                   # Public notes listing with folder navigation
+│       ├── index.jsp                   # Public page with 4 category buttons
 │       └── WEB-INF/
 │           ├── admin.jsp               # Admin dashboard with folder management
 │           └── web.xml                 # Security configuration
 ├── conf/
 │   └── tomcat-users.xml                # Admin user configuration
-├── notes/                              # Uploaded files directory (supports nested folders)
+├── notes/                              # Uploaded files directory (4 predefined categories)
+│   ├── Notes/                          # Category for class notes
+│   ├── Question Papers/                # Category for question papers
+│   ├── Text Books/                     # Category for textbooks
+│   └── Guides/                         # Category for study guides
 ├── pom.xml                             # Maven configuration
 ├── run.sh                              # Build and run script
 └── replit.md                           # This documentation
@@ -43,39 +47,50 @@ student-notes/
 
 ## Features
 
-### Folder Organization System
-- Create nested folders/categories (e.g., Engineering/Semester 1/Mathematics)
-- Upload files to specific folders
+### 4 Main Categories
+- **Notes** - Class notes and lecture materials
+- **Question Papers** - Past papers and practice questions
+- **Text Books** - Reference textbooks and study guides
+- **Guides** - Preparation guides and study strategies
+
+### Nested Directory System Within Each Category
+- Create subdirectories (e.g., Notes/Mathematics/Calculus)
+- Upload files to any level
 - Browse folders with breadcrumb navigation
-- Sidebar shows all categories with file counts
+- Full path sanitization preventing directory traversal attacks
 
 ### Public Features (No Login Required)
-- View list of all available notes at `/` or `/list`
-- Navigate through folders and subfolders
+- View 4 main category buttons on the home page
+- Navigate through nested directories
 - Download any note file by clicking on it
-- Sidebar category navigation
+- Clean breadcrumb navigation showing current location
 
 ### Admin Features (Login Required)
 - Access admin dashboard at `/admin/dashboard`
-- Create new folders/categories
+- Create new subdirectories within any category
 - Upload files to any folder
 - Delete files and entire folders
 - Navigate folder structure with breadcrumbs
 - Protected by HTTP BASIC authentication
 
-## Folder Structure Example
+## Example Folder Structure
 ```
 notes/
-├── Engineering/
-│   ├── Semester 1/
-│   │   ├── Mathematics.pdf
-│   │   └── Physics.pdf
-│   └── Semester 2/
-│       └── Data Structures.pdf
-├── MBA/
-│   └── Finance/
-│       └── Accounting.pdf
-└── General Notes.pdf
+├── Notes/
+│   ├── Mathematics/
+│   │   ├── Algebra.pdf
+│   │   └── Calculus.pdf
+│   ├── Physics/
+│   │   └── Mechanics.pdf
+├── Question Papers/
+│   ├── 2024/
+│   │   ├── Math Q1.pdf
+│   │   └── Physics Q1.pdf
+├── Text Books/
+│   ├── Engineering/
+│   │   └── Thermodynamics.pdf
+└── Guides/
+    └── Exam Preparation.pdf
 ```
 
 ## Authentication
@@ -89,13 +104,14 @@ The application runs automatically using the configured workflow:
 1. Maven builds the WAR file
 2. WAR is deployed to Tomcat's webapps directory
 3. Tomcat starts on port 5000
+4. 4 category folders are created automatically if missing
 
 ## File Storage
-Uploaded files are stored in the `notes/` directory at the project root (outside the WAR file). This ensures files persist across redeployments. The folder structure is fully customizable.
+Uploaded files are stored in the `notes/` directory at the project root (outside the WAR file). This ensures files persist across redeployments. The folder structure includes 4 predefined categories with full nested directory support.
 
 ## URLs
 - **Public Page:** `http://hostname:5000/`
-- **Browse Folder:** `http://hostname:5000/list?path=FolderName`
+- **Browse Category:** `http://hostname:5000/list?path=Notes` or `Question Papers`, `Text Books`, `Guides`
 - **Admin Dashboard:** `http://hostname:5000/admin/dashboard`
 
 ## Security Notes

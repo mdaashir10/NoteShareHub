@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ListNotesServlet extends HttpServlet {
     
     private static final String NOTES_DIR = System.getProperty("user.dir") + "/notes";
+    private static final String[] CATEGORIES = {"Notes", "Question Papers", "Text Books", "Guides"};
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -81,30 +82,12 @@ public class ListNotesServlet extends HttpServlet {
             }
         }
         
-        List<FolderItem> allCategories = new ArrayList<>();
-        collectAllFolders(notesFolder, "", allCategories);
-        
         request.setAttribute("folders", folders);
         request.setAttribute("files", files);
         request.setAttribute("currentPath", currentPath);
         request.setAttribute("breadcrumbs", breadcrumbs);
-        request.setAttribute("allCategories", allCategories);
         
         request.getRequestDispatcher("/index.jsp").forward(request, response);
-    }
-    
-    private void collectAllFolders(File folder, String path, List<FolderItem> result) {
-        File[] items = folder.listFiles();
-        if (items != null) {
-            Arrays.sort(items, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
-            for (File item : items) {
-                if (item.isDirectory() && !item.getName().startsWith(".")) {
-                    String folderPath = path.isEmpty() ? item.getName() : path + "/" + item.getName();
-                    result.add(new FolderItem(item.getName(), folderPath, countFiles(item)));
-                    collectAllFolders(item, folderPath, result);
-                }
-            }
-        }
     }
     
     private int countFiles(File folder) {
