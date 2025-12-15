@@ -508,34 +508,43 @@
                     </form>
                 </div>
                 
-                <div class="form-card">
-                    <h3>📁 Create Folder</h3>
-                    <form action="createFolder" method="post">
-                        <div class="form-group">
-                            <label>Create inside:</label>
-                            <select name="parentPath">
-                                <option value="<%= currentPath %>" selected>
-                                    <%= currentPath.isEmpty() ? "📁 Root folder (current)" : "📁 " + currentPath + " (current)" %>
-                                </option>
-                                <option value="">📁 Root folder</option>
-                                <% if (allCategories != null) {
-                                    for (FolderItem cat : allCategories) {
-                                        if (!cat.getPath().equals(currentPath)) { %>
-                                            <option value="<%= cat.getPath() %>">📁 <%= cat.getPath() %></option>
-                                        <% }
-                                    }
-                                } %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Folder name:</label>
-                            <input type="text" name="folderName" placeholder="e.g., Semester 1" required>
-                        </div>
-                        <button type="submit" class="btn btn-create">
-                            <span>📁</span> Create Folder
-                        </button>
-                    </form>
-                </div>
+<div class="form-card">
+    <h3>📤 Upload File</h3>
+
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Upload to category:</label>
+            <select name="category">
+                <option value="<%= currentPath %>" selected>
+                    <%= currentPath.isEmpty()
+                        ? "📁 Root folder (current)"
+                        : "📁 " + currentPath + " (current)" %>
+                </option>
+
+                <option value="">📁 Root folder</option>
+
+                <% if (allCategories != null) {
+                    for (FolderItem cat : allCategories) {
+                        if (!cat.getPath().equals(currentPath)) { %>
+                            <option value="<%= cat.getPath() %>">
+                                📁 <%= cat.getPath() %>
+                            </option>
+                        <% }
+                    }
+                } %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select file:</label>
+            <input type="file" name="noteFile" required>
+        </div>
+
+        <button type="submit" class="btn btn-upload">
+            <span>⬆</span> Upload File
+        </button>
+    </form>
+</div>
             </div>
         </div>
         
